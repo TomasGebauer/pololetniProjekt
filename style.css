@@ -4,7 +4,6 @@ body {
     align-items: center;
     flex-direction: column;
     background: #01315e;
-    
     height: 100vh;
     overflow: hidden;
 }
@@ -15,7 +14,7 @@ body {
     font-weight: bold;
     text-align: center;
     color: #0fdfd4;
-    margin-bottom: -80px;
+    margin-bottom: -20px;
     padding-top: -100px;
 }
 canvas {
