@@ -42,7 +42,7 @@ class Palka2 {
 }
 class Micek {
   constructor() {
-    this.rychlostMicek= 5;
+    this.rychlostMicek = 5;
     this.x = sirka / 2;
     this.y = vyska / 2;
     this.prumer = 20;
@@ -84,8 +84,15 @@ function points() {
 }
 
 function updateScores() {
-  document.getElementById('player1-score').textContent = hrac1;
-  document.getElementById('player2-score').textContent = hrac2;
+  let player1Element = document.getElementById('player1-score');
+  let player2Element = document.getElementById('player2-score');
+
+  if (player1Element && player2Element) {
+    player1Element.textContent = hrac1;
+    player2Element.textContent = hrac2;
+  } else {
+    console.error('Elementy pro skóre nebyly nalezeny!');
+  }
 }
 
 function setup() {
@@ -111,10 +118,8 @@ function draw() {
   if (micek.mimoHriste()) {
     if (micek.x <= 0) {
       hrac2++;
-      break;
     } else {
       hrac1++;
-      break;
     }
     micek = new Micek();
     updateScores();
