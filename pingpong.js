@@ -111,12 +111,10 @@ function draw() {
   if (micek.mimoHriste()) {
     if (micek.x <= 0) {
       hrac2++;
-      micek.splice(1);
-      micek.vykresli();
+      break;
     } else {
       hrac1++;
-      micek.splice(1);
-      micek.vykresli();
+      break;
     }
     micek = new Micek();
     updateScores();
