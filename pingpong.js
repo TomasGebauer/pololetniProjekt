@@ -106,6 +106,7 @@ function updateScores() {
   } else {
     console.error("Elementy pro skóre nebyly nalezeny."); // pojistka kdyby se neco zkazilo pri nacitani elementu 
 }
+}
 
 // Funkce pro inicializaci hry
 function setup() {
@@ -134,7 +135,7 @@ function draw() {
   if (micek.mimoHriste()) { 
     if (micek.x <= 0) {
       hrac2++;             // pricte se bod hracovi 2 pokud micek opusti levy okraj 
-    } else {
+    } else if (micek.x >= sirka) {
       hrac1++;             // pricte se bod hracovi 1 pokud micek opusti levy okraj 
     }
     micek = new Micek();   // reset micku na stredd
