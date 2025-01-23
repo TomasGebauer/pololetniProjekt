@@ -1,36 +1,35 @@
-// Deklarace globálních proměnných pro herní objekty
-let levaPalka;  // Proměnná pro levou pálku
-let pravaPalka; // Proměnná pro pravou pálku
-let micek;      // Proměnná pro míček
+// deklarace promennych 
+let levaPalka;  
+let pravaPalka; 
+let micek;      
 
-// Konstanty určující rozměry hrací plochy
-const sirka = 1000;  // Šířka hrací plochy v pixelech
-const vyska = 500;   // Výška hrací plochy v pixelech
+// konstanta urcujici sirku a vysku hraci plochy
+const sirka = 1000;  // sirka
+const vyska = 500;   // vysja
 
-// Proměnné pro skóre hráčů
-let hrac1 = 0;  // Počáteční skóre hráče 1
-let hrac2 = 0;  // Počáteční skóre hráče 2
+// promenne (skore hracu)
+let hrac1 = 0;  
+let hrac2 = 0;  
 
-// Definice třídy pro levou pálku
+// trida pro pravou palku
 class Palka1 {
-  constructor(x, y) {   // Konstruktor s parametry x a y (počáteční pozice pálky)
-    this.x = x;         // Uložení vodorovné pozice pálky
-    this.y = y;         // Uložení svislé pozice pálky
-    this.sirka = 20;    // Šířka pálky
-    this.vyska = 100;   // Výška pálky
-    this.rychlost = 7;  // Rychlost pohybu pálky
+  constructor(x, y) {   // konstruktor s parametry x a y (pocatecni pozice pro palku)
+    this.x = x;         // horizontalni pozice palky
+    this.y = y;         // vvertikalni pozice palky
+    this.sirka = 20;    // sirka palky
+    this.vyska = 100;   // vyska palky
+    this.rychlost = 7;  // rychlost palky
   }
-  vykresli() {          // Metoda pro vykreslení pálky
-    fill(255, 0, 0);    // Nastavení červené barvy
-    rect(this.x, this.y, this.sirka, this.vyska); // Vykreslení obdélníku (pálky)
+  vykresli() {          // vykresli palky
+    fill(255, 0, 0);    // cervena barva
+    rect(this.x, this.y, this.sirka, this.vyska); // rect-obdelnik (palka)
   }
-  pohyb(move) {         // Metoda pro pohyb pálky
-    this.y = constrain(this.y + move * this.rychlost, 0, vyska - this.vyska);
-    // Omezení pohybu v rámci hrací plochy
+  pohyb(move) {         // pohyb palky
+    this.y = constrain(this.y + move * this.rychlost, 0, vyska - this.vyska); // omezeni pohybu na hraci plose
   }
 }
 
-// Definice třídy pro pravou pálku (stejná logika jako u levé)
+// prava palka
 class Palka2 {
   constructor(x, y) {   
     this.x = x;         
@@ -41,7 +40,7 @@ class Palka2 {
   }
 
   vykresli() {          
-    fill(0, 0, 255);    // Nastavení modré barvy
+    fill(0, 0, 255);    // modra barva
     rect(this.x, this.y, this.sirka, this.vyska); 
   }
 
@@ -50,63 +49,62 @@ class Palka2 {
   }
 }
 
-// Definice třídy pro míček
+// trida pro micek
 class Micek {
   constructor() {
-    this.rychlostMicek = 5;     // Počáteční rychlost míčku
-    this.x = sirka / 2;         // Počáteční pozice (střed plochy na šířku)
-    this.y = vyska / 2;         // Počáteční pozice (střed plochy na výšku)
-    this.prumer = 20;           // Průměr míčku
-    this.rychlostX = this.rychlostMicek; // Rychlost ve směru osy X
-    this.rychlostY = this.rychlostMicek; // Rychlost ve směru osy Y
+    this.rychlostMicek = 5;     // rychlost micku
+    this.x = sirka / 2;         // zacatecni pozice (stred plochy na sirku)
+    this.y = vyska / 2;         // zacatecni pozice (stred plochy na vysku)
+    this.prumer = 20;           // prumer micku
+    this.rychlostX = this.rychlostMicek; // rychlost ve smeru X
+    this.rychlostY = this.rychlostMicek; // rychlost ve smeru Y
   }
 
   vykresli() {                  
-    fill(255, 255, 255);         // Nastavení bílé barvy míčku
-    ellipse(this.x, this.y, this.prumer); // Vykreslení kruhu (míčku)
+    fill(255, 255, 255);         // bila barva micku
+    ellipse(this.x, this.y, this.prumer); // vykresleni kruhu-ellipse
   }
 
   aktualizuj() {                 
-    this.x += this.rychlostX;    // Posun míčku ve směru X
-    this.y += this.rychlostY;    // Posun míčku ve směru Y
+    this.x += this.rychlostX;    // posun micku ve smeru X
+    this.y += this.rychlostY;    // posun micku ve smeru Y
     if (this.y <= 0 || this.y >= vyska) {
-      this.rychlostY *= -1;      // Odrážení od horní a dolní stěny
+      this.rychlostY *= -1;      // odraz od horni a dolni steny
     }
   }
 
   naraz(palka) {                 
     return (
-      this.x - this.prumer / 2 <= palka.x + palka.sirka &&  // Detekce kolize zprava
-      this.x + this.prumer / 2 >= palka.x &&                // Detekce kolize zleva
-      this.y >= palka.y &&                                  // Detekce horního okraje pálky
-      this.y <= palka.y + palka.vyska                       // Detekce dolního okraje pálky
+      this.x - this.prumer / 2 <= palka.x + palka.sirka &&  // detekce narazu z prava
+      this.x + this.prumer / 2 >= palka.x &&                // detekce narazu z leva
+      this.y >= palka.y &&                                  // detekce horniho okraje palky
+      this.y <= palka.y + palka.vyska                       // detekce dolniho okraje palky
     );
   }
 
   mimoHriste() {                 
-    return this.x <= 0 || this.x >= sirka;  // Kontrola, zda míček opustil hřiště
+    return this.x <= 0 || this.x >= sirka;  // kontrola zda micek opustil hriste
   }
 }
 
-// Funkce pro vykreslení skóre na plátno
+// funkce na vykresleni skore 
 function points() {
-  textSize(32);                      // Nastavení velikosti textu
-  fill(255);                          // Nastavení bílé barvy textu
-  textAlign(CENTER, TOP);              // Zarovnání textu na střed
-  text(`${hrac1} : ${hrac2}`, sirka / 2, 10);  // Zobrazení skóre
+  textSize(32);                      // velikost textu
+  fill(255);                          // bila (text)
+  textAlign(CENTER, TOP);              // zarovnani na stred
+  text(`${hrac1} : ${hrac2}`, sirka / 2, 10);  // zobrazeni skore
 }
 
-// Funkce pro aktualizaci skóre v HTML
+// funkce pro aktualizaci skore v HTML
 function updateScores() {
-  let player1Element = document.getElementById('player1-score'); // Získání prvku hráče 1
-  let player2Element = document.getElementById('player2-score'); // Získání prvku hráče 2
+  let player1Element = document.getElementById('player1-score'); // ziskani prvku hrace 1 (leva palka)
+  let player2Element = document.getElementById('player2-score'); // ziskani prvku hrace 2 (prava palka)
 
-  if (player1Element && player2Element) {  // Kontrola existence prvků
-    player1Element.textContent = hrac1;    // Aktualizace skóre hráče 1
-    player2Element.textContent = hrac2;    // Aktualizace skóre hráče 2
+  if (player1Element && player2Element) {  // kontrola zda prvek existuje
+    player1Element.textContent = hrac1;    // aktualizace skore pro hrace 1
+    player2Element.textContent = hrac2;    // aktualizace skore pro hrace 2
   } else {
-    console.error('Elementy pro skóre nebyly nalezeny!'); // Chybová zpráva při nenalezení prvků
-  }
+    console.error("Elementy pro skóre nebyly nalezeny."); // pojistka kdyby se neco zkazilo pri nacitani elementu 
 }
 
 // Funkce pro inicializaci hry
@@ -119,40 +117,40 @@ function setup() {
   micek = new Micek();                           // Vytvoření míčku
 }
 
-// Funkce pro kreslení a logiku hry
+// funkce pro vykreslení a logiku hry
 function draw() {
-  background(0);          // Vymazání obrazovky (černé pozadí)
-  points();               // Zobrazení skóre
+  background(0);          // cerne pozadi
+  points();               // zobrazeni skore
 
-  levaPalka.vykresli();    // Vykreslení levé pálky
-  pravaPalka.vykresli();   // Vykreslení pravé pálky
-  micek.vykresli();        // Vykreslení míčku
-  micek.aktualizuj();      // Aktualizace pozice míčku
+  levaPalka.vykresli();    // vykresli levou palku
+  pravaPalka.vykresli();   // vykresli pravou palku
+  micek.vykresli();        // vykresli micek
+  micek.aktualizuj();      // aktualizace pozice micku
 
   if (micek.naraz(levaPalka) || micek.naraz(pravaPalka)) {
-    micek.rychlostX *= -1;  // Odrážení míčku od pálky
+    micek.rychlostX *= -1;  // odrazeni micku od palky
   }
 
   if (micek.mimoHriste()) { 
     if (micek.x <= 0) {
-      hrac2++;             // Bod pro hráče 2, pokud míček opustil levý okraj
+      hrac2++;             // pricte se bod hracovi 2 pokud micek opusti levy okraj 
     } else {
-      hrac1++;             // Bod pro hráče 1, pokud míček opustil pravý okraj
+      hrac1++;             // pricte se bod hracovi 1 pokud micek opusti levy okraj 
     }
-    micek = new Micek();   // Reset míčku na střed
-    updateScores();        // Aktualizace skóre v HTML
+    micek = new Micek();   // reset micku na stredd
+    updateScores();        // aktualizace skore v html 
   }
 
-  if (keyIsDown(87)) {     // Pohyb levé pálky nahoru (W)
+  if (keyIsDown(87)) {     // pohyb leve palky nahoru (W)
     levaPalka.pohyb(-1);
   }
-  if (keyIsDown(83)) {     // Pohyb levé pálky dolů (S)
+  if (keyIsDown(83)) {     // pohyb leve palky dolu (S)  
     levaPalka.pohyb(1);
   }
-  if (keyIsDown(UP_ARROW)) {  // Pohyb pravé pálky nahoru (šipka nahoru)
+  if (keyIsDown(UP_ARROW)) {  // pohyb prave palky nahoru (sipka nahoru)
     pravaPalka.pohyb(-1);
   }
-  if (keyIsDown(DOWN_ARROW)) {  // Pohyb pravé pálky dolů (šipka dolů)
+  if (keyIsDown(DOWN_ARROW)) {  // pohyb prave palkky dolu (sipka dolu)
     pravaPalka.pohyb(1);
   }
 }
