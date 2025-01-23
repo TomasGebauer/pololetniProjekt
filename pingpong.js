@@ -109,12 +109,12 @@ function updateScores() {
 
 // Funkce pro inicializaci hry
 function setup() {
-  let holder = document.getElementById("pole");  // Získání HTML kontejneru
-  let canvas = createCanvas(sirka, vyska);       // Vytvoření hracího plátna
-  canvas.parent(holder);                         // Připojení plátna do kontejneru
-  levaPalka = new Palka1(10, vyska / 2 - 50);     // Vytvoření levé pálky
-  pravaPalka = new Palka2(sirka - 30, vyska / 2 - 50); // Vytvoření pravé pálky
-  micek = new Micek();                           // Vytvoření míčku
+  let holder = document.getElementById("pole");  // ziskani HTML elementu                     
+  let canvas = createCanvas(sirka, vyska);       // vytvoreni hraciho platna
+  canvas.parent(holder);                         // pripojeni platna
+  levaPalka = new Palka1(10, vyska / 2 - 50);     // vytvoreni leve palky
+  pravaPalka = new Palka2(sirka - 30, vyska / 2 - 50); // vytvoreni prave palky
+  micek = new Micek();                           // vytvoreni micku
 }
 
 // funkce pro vykreslení a logiku hry
